@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     deleteAddress(address){
-      console.log("deleting address with id"+ address.id)
+      console.log("deleting address with id" + address.id)
       axios.delete("https://localhost:7210/api/address/"+address.id).then(
           (x) => {
             if(x.status === 200)

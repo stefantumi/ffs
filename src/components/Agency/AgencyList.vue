@@ -37,7 +37,7 @@
 
     <v-row justify="center">
       <v-btn
-          class="white--text"
+          class="white&#45;&#45;text"
           color="teal"
           @click="overlay = !overlay"
       >
@@ -51,7 +51,7 @@
         >
           <agency-form></agency-form>
           <v-btn
-              class="white--text"
+              class="white&#45;&#45;text"
               color="teal"
               @click="overlay = false"
           >
@@ -73,6 +73,9 @@ export default {
     agencyForm
   },
   methods:{
+    viewAgency(agencyId){
+      this.$router.push({path: '/agencydetails/'+agencyId})
+    },
     deleteAgency(agency){
       console.log("deleting address with id"+ agency.id)
       axios.delete("https://localhost:7210/api/agency/"+agency.id).then(
