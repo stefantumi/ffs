@@ -1,21 +1,40 @@
 <template>
   <v-container>
     <h1>Agency</h1>
-    <v-card
+    <v-container
         v-for="agency in agencies"
         :key="agency.id"
-        max-width="450"
-        class="mx-auto"
     >
-      <v-card-title>
-        {{agency.id}}
-      </v-card-title>
-      <v-card-text>
-        {{ agency.name }}
-        <br>
-        {{ agency.properties}}
-      </v-card-text>
-    </v-card>
+      <v-card
+          max-width="450"
+          class="mx-auto"
+      >
+        <v-card-title>
+          {{agency.id}}
+          <v-spacer>{{ agency.name }}</v-spacer>
+          <v-btn
+              type="submit"
+              @click="deleteAgency(agency)"
+          >
+            <v-icon>
+              mdi-delete
+            </v-icon>
+          </v-btn>
+          <v-btn
+              type="submit"
+          >
+            <v-icon>
+              mdi-pen
+            </v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-card-text>
+          <br>
+          Properties: {{ agency.properties }}
+        </v-card-text>
+      </v-card>
+    </v-container>
+
     <v-row justify="center">
       <v-btn
           class="white--text"
@@ -53,7 +72,17 @@ export default {
   components: {
     agencyForm
   },
-
+  methods:{
+    deleteAgency(agency){
+      console.log("deleting address with id"+ agency.id)
+      axios.delete("https://localhost:7210/api/agency/"+agency.id).then(
+          (x) => {
+            if(x.status === 200)
+              this.deleted = true
+          }
+      )
+    }
+  },
   data:() => {
     return {
       agencies: undefined,

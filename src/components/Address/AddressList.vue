@@ -20,9 +20,9 @@
         </v-btn>
       </v-card-title>
       <v-card-text>
-        {{ address.street }}{{addresses.houseNo}}
+        Street: {{ address.street }}{{addresses.houseNo}}
         <br>
-        {{ address.zip}}
+        Post Code: {{ address.zip}}
       </v-card-text>
     </v-card>
 

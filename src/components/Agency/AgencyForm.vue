@@ -5,14 +5,14 @@
         <v-row>
           <v-col cols="12" md="4" >
             <v-text-field
-                :v-model="agencyName"
+                v-model="agencyName"
                 label="Nafn Sölu"
             >
             </v-text-field>
             <v-btn
                 class="mr-4"
                 type="submit"
-                @click="sendToApi(agencyName)"
+                @click="save"
             >
               submit
             </v-btn>
@@ -39,14 +39,15 @@ export default {
     }
   },
   methods:{
-    sendToApi(newAgency){
-      axios.post("https://localhost:7210/api/agency/", newAgency).then(
+    save(){
+      axios({
+        method: "post",
+        url: "https://localhost:7210/api/agency",
+        data: {'name': this.agencyName},
+        headers: {'Accept': "*/*"}
+      }).then(
           (x) => {
-            if(x.status === 201){
-              this.postSuccess = true
-            }else{
-              this.postFailed = true
-            }
+            x.status === 201 ? this.success = true : this.success = false
           }
       )
     }

@@ -53,7 +53,6 @@ export default {
   },
   methods: {
     save(){
-      console.log("street", this.street, "hosue", this.houseNo, this.zip)
       axios({
         method: "post",
         url: "https://localhost:7210/api/address",

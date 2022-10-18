@@ -9,13 +9,23 @@
     >
       <v-card-title>
         {{property.id}}
+        <v-spacer></v-spacer>
+        <v-btn
+            type="submit"
+            @click="deleteProperty(property)"
+        >
+          <v-icon>
+            mdi-delete
+          </v-icon>
+        </v-btn>
       </v-card-title>
+
       <v-card-text>
-        {{ property.address }}
+        Size: {{ property.size }}
         <br>
-        {{ property.size }}
+        Price: {{ property.price }}
         <br>
-        {{ property.price }}
+        Address: {{ property.address }}
       </v-card-text>
     </v-card>
     <v-row justify="center">
@@ -63,11 +73,20 @@ export default {
       zIndex: 0,
     }
   },
+  methods:{
+    deleteProperty(property){
+      axios.delete("https://localhost:7210/api/property/"+property.id).then(
+          (x) => {
+            if(x.status === 200)
+              this.deleted = true
+          }
+      )
+    }
+  },
   mounted() {
     axios.get("https://localhost:7210/api/property").then(
         (x) => {
           this.property = x.data
-          this.$store.commit('ADD_TO_PROPERTYLIST', x.data)
         }
     )
   }

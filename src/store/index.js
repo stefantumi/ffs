@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    serverApi: "https://localhost:7210/",
     addresses: [],
     agencies: undefined,
     properties: undefined,
@@ -22,7 +23,7 @@ export default new Vuex.Store({
     ADD_TO_AGENCYLIST(state, payload){
       state.agencies.push(payload)
     },
-    ADD_TO_PROPERTYLIST(state,payload){
+    ADD_TO_PROPERTY_LIST(state, payload){
       state.properties.push(payload)
     }
   },
@@ -31,10 +32,10 @@ export default new Vuex.Store({
       commit('ADD_TO_ADDRESSLIST', payload)
     },
     setAgencies({commit}, payload){
-      commit('ADD_TO_PROPERTYLIST', payload)
+      commit('ADD_TO_AGENCYLIST', payload)
     },
     setProperties({commit}, payload){
-      commit('ADD_TO_PROPERTYLIST', payload)
+      commit('ADD_TO_PROPERTY_LIST', payload)
     }
   },
   modules: {
