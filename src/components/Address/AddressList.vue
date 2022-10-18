@@ -1,53 +1,76 @@
 <template>
-  <v-card
-      max-width="450"
-      class="mx-auto"
-  >
-    {{this.addresses}}
-    <v-btn
-        @click="getData"
+  <v-container>
+    <h1>Address</h1>
+    <v-card
+        v-for="address in addresses"
+        :key="address.id"
+        max-width="450"
+        class="mx-auto"
     >
-      get
-    </v-btn>
-<!--    <v-list three-line>
-      <template v-for="(address, index) in addresses">
-        <v-subheader
-            :key="address.street"
-            v-text="address.street"
-        ></v-subheader>
-
-        <v-divider
-            :key="index"
-            :inset="address.inset"
-        ></v-divider>
-
-        <v-list-item
-            :key="address.street"
+      <v-card-title>
+        {{address.id}}
+        <v-spacer></v-spacer>
+        <v-btn
+            type="submit"
+            @click="deleteAddress(address)"
         >
-          <v-list-item-avatar>
-            <v-img :src="address.houseNo"></v-img>
-          </v-list-item-avatar>
+          <v-icon>
+            mdi-delete
+          </v-icon>
+        </v-btn>
+      </v-card-title>
+      <v-card-text>
+        {{ address.street }}{{addresses.houseNo}}
+        <br>
+        {{ address.zip}}
+      </v-card-text>
+    </v-card>
 
-          <v-list-item-content>
-            <v-list-item-title v-html="address.title"></v-list-item-title>
-            <v-list-item-subtitle v-html="address.houseNo"></v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-      </template>
-    </v-list>-->
-  </v-card>
+    <v-row justify="center">
+      <v-btn
+          class="white--text"
+          color="teal"
+          @click="overlay = !overlay"
+      >
+        Create Address
+      </v-btn>
+
+      <v-card>
+        <v-overlay
+            :z-index="zIndex"
+            :value="overlay"
+        >
+          <address-form></address-form>
+
+          <v-btn
+              class="white--text"
+              color="teal"
+              @click="overlay = false"
+          >
+            Hide Overlay
+          </v-btn>
+        </v-overlay>
+      </v-card>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
 import axios from "axios";
+import AddressForm from "@/components/Address/AddressForm";
 
 export default {
   name: "AddressList",
+  components:{
+    AddressForm
+  },
   methods: {
-    getData(){
-      axios.get("https://localhost:7210/api/addresses").then(
+    deleteAddress(address){
+      console.log("deleting address with id"+ address.id)
+      axios.delete("https://localhost:7210/api/address/"+address.id).then(
           (x) => {
-            this.addresses = x.data
+            if(x.status === 200)
+            this.deleted = true
           }
       )
     }
@@ -55,13 +78,18 @@ export default {
   data: () => {
     return {
       addresses: undefined,
-      address: undefined,
+      overlay: false,
+      zIndex: 0,
+      deleted: false
     }
   },
-  computed(){
-  },
   mounted() {
-
+    axios.get("https://localhost:7210/api/address").then(
+        (x) => {
+          this.addresses = x.data
+          this.$store.commit('ADD_TO_ADDRESSLIST', x.data)
+        }
+    )
   }
 }
 </script>

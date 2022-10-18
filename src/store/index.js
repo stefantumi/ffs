@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    addresses: undefined,
+    addresses: [],
     agencies: undefined,
     properties: undefined,
   },
