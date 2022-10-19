@@ -19,6 +19,11 @@ export default {
   name: 'HomeView',
   components: {
     agencyList,
+  },
+  data:() => {
+    return {
+      loading: false
+    }
   }
 }
 </script>

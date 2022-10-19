@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1>Agency</h1>
+    <h1>Agencies</h1>
     <v-container
         v-for="agency in agencies"
         :key="agency.id"
@@ -8,6 +8,7 @@
       <v-card
           max-width="450"
           class="mx-auto"
+          @click="viewAgency(agency.id)"
       >
         <v-card-title>
           {{agency.id}}
@@ -49,7 +50,7 @@
             :z-index="zIndex"
             :value="overlay"
         >
-          <agency-form></agency-form>
+          <agency-details/>
           <v-btn
               class="white&#45;&#45;text"
               color="teal"
@@ -65,16 +66,15 @@
 
 <script>
 import axios from "axios";
-import agencyForm from "@/components/Agency/AgencyForm";
+import router from "@/router";
 
 export default {
   name: "AgencyList",
   components: {
-    agencyForm
   },
   methods:{
     viewAgency(agencyId){
-      this.$router.push({path: '/agencydetails/'+agencyId})
+      router.push('/agencydetails/'+agencyId)
     },
     deleteAgency(agency){
       console.log("deleting address with id"+ agency.id)
