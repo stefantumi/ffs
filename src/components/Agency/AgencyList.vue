@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <h1>Agencies</h1>
     <v-container
         v-for="agency in agencies"
@@ -8,69 +8,85 @@
       <v-card
           max-width="450"
           class="mx-auto"
-          @click="viewAgency(agency.id)"
       >
         <v-card-title>
           {{agency.id}}
+
           <v-spacer>{{ agency.name }}</v-spacer>
-          <v-btn
-              type="submit"
-              @click="deleteAgency(agency)"
-          >
-            <v-icon>
-              mdi-delete
-            </v-icon>
-          </v-btn>
-          <v-btn
-              type="submit"
-          >
-            <v-icon>
-              mdi-pen
-            </v-icon>
-          </v-btn>
         </v-card-title>
-        <v-card-text>
-          <br>
-          Properties: {{ agency.properties }}
-        </v-card-text>
+       <v-card-actions>
+         <v-icon
+             @click="viewAgency(agency.id)"
+         >
+           mdi-magnify
+         </v-icon>
+         <v-spacer>
+           <v-icon
+               color="red"
+               type="submit"
+               @click="deleteAgency(agency)"
+           >
+             mdi-delete
+           </v-icon>
+         </v-spacer>
+         <v-icon
+             type="submit"
+             @click="overlay =! overlay"
+         >
+           mdi-pen
+         </v-icon>
+         <v-overlay
+             opacity="1"
+             :z-index="agency.id"
+             :value="overlay"
+         >
+           <agency-form/>
+           <v-btn
+               class="white&#45;&#45;text"
+               color="teal"
+               @click="overlay = false"
+           >
+             Hide Overlay
+           </v-btn>
+         </v-overlay>
+       </v-card-actions>
       </v-card>
     </v-container>
-
     <v-row justify="center">
-      <v-btn
-          class="white&#45;&#45;text"
-          color="teal"
-          @click="overlay = !overlay"
-      >
-        Create agency
-      </v-btn>
-
-      <v-card>
-        <v-overlay
-            :z-index="zIndex"
-            :value="overlay"
-        >
-          <agency-details/>
-          <v-btn
-              class="white&#45;&#45;text"
-              color="teal"
-              @click="overlay = false"
-          >
-            Hide Overlay
-          </v-btn>
-        </v-overlay>
-      </v-card>
     </v-row>
-  </v-container>
+    <v-btn
+        right
+        bottom
+        fab
+        class="ma-3 pa-3"
+        color="teal"
+        @click="overlay = !overlay"
+    >
+      <v-icon>
+        mdi-plus
+      </v-icon>
+    </v-btn>
+  </div>
+
 </template>
 
 <script>
 import axios from "axios";
 import router from "@/router";
+import AgencyForm from "@/components/Agency/AgencyForm";
 
 export default {
   name: "AgencyList",
   components: {
+    AgencyForm
+  },
+  data:() => {
+    return {
+      agencies: undefined,
+      overlay: false,
+      loading: true,
+      zIndex: 0,
+    }
   },
   methods:{
     viewAgency(agencyId){
@@ -86,17 +102,11 @@ export default {
       )
     }
   },
-  data:() => {
-    return {
-      agencies: undefined,
-      overlay: false,
-      zIndex: 0,
-    }
-  },
   mounted() {
     axios.get("https://localhost:7210/api/agency").then(
         (x) => {
           this.agencies = x.data
+          this.loading = false
         }
     )
   }

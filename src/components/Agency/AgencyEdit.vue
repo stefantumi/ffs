@@ -7,31 +7,19 @@
             md="4"
         >
           <v-text-field
-              v-model="localProperty.size"
+              v-model="localAgency.name"
               :rules="nameRules"
               :counter="10"
-              label="size"
+              label="Nafn"
               required
           ></v-text-field>
         </v-col>
-
         <v-col
             cols="12"
             md="4"
         >
-          <v-text-field
-              v-model="localProperty.price"
-              :rules="nameRules"
-              :counter="10"
-              label="pirce"
-              required
-          ></v-text-field>
-        </v-col>
-
-        <v-col
-            cols="12"
-            md="4"
-        >
+          <v-col cols="6">
+          </v-col>
         </v-col>
       </v-row>
     </v-container>
@@ -42,12 +30,12 @@
 import axios from "axios";
 
 export default {
-  name: "PropertyEdit",
-  props: ['propertyId'],
+  name: "AgencyEdit",
+  props: ['agencyId'],
   data: () => {
     return {
       valid: false,
-      localProperty: undefined,
+      localAgency: undefined,
       nameRules: [
         v => !!v || 'Name is required',
         v => v.length <= 10 || 'Name must be less than 10 characters',
@@ -59,9 +47,9 @@ export default {
     }
   },
   mounted(){
-    axios.get("https://localhost:7210/api/property/"+this.propertyId).then(
+    axios.get("https://localhost:7210/api/agency/"+this.agencyId).then(
         (x) => {
-          this.localProperty = x.data
+          this.localAgency = x.data
         }
     )
   }

@@ -1,55 +1,27 @@
 <template>
-  <div>
+  <div
+      align="center"
+  >
     <h1>{{agency.name}}</h1>
     <v-container
         v-for="(property, index) in properties"
         :key="index"
     >
-      <v-card>
-        <v-card-title>
-          {{ property.id }}
-          <v-spacer>
-            {{ property.address.street }}
-            {{ property.address.houseNo }}
-          </v-spacer>
-          <v-btn
-              class="white--text"
-              color="teal"
-              @click="overlay = !overlay"
-          >
-            edit
-          </v-btn>
-        </v-card-title>
-        Size: {{ property.size }} FM<br>
-        Price: {{ property.price }}<br>
-      </v-card>
-      <v-row justify="center">
-        <v-overlay
-            :z-index="zIndex"
-            :value="overlay"
-        >
-          <PropertyEdit :property-id="property.id"/>
-          <v-btn
-              class="white--text"
-              color="teal"
-              @click="overlay = false"
-          >
-            Hide Overlay
-          </v-btn>
-        </v-overlay>
-      </v-row>
+      <PropertyInstance :property="property" />
     </v-container>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import PropertyEdit from "@/components/Property/PropertyEdit";
+/*import PropertyEdit from "@/components/Property/PropertyEdit";*/
+/*import PropertyCreate from "@/components/Property/PropertyCreate";*/
+import PropertyInstance from "@/components/Property/PropertyInstance";
 
 export default {
   name: "AgencyDetails",
   components: {
-    PropertyEdit
+    PropertyInstance
   },
   props: ['agencyId'],
   data: () => {
@@ -58,8 +30,7 @@ export default {
       properties: undefined,
       addresses: [],
       loading: true,
-      overlay: false,
-      zIndex: 0,
+
     }
   },
   mounted() {
@@ -70,13 +41,7 @@ export default {
           this.properties = x.data.properties
         }
     );
-    axios.get("https://localhost:7210/api/address").then(
-        (x) => {
-          for (let i = 0; i < x.data.length; i++) {
-            this.addresses.push(x.data[i].street + '' + x.data[i].houseNo)
-          }
-        }
-    )
+
   }
 }
 </script>

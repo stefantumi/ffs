@@ -1,13 +1,6 @@
 <template>
-  <div>
-    <v-card
-        class="ma-6"
-        align="center"
-        width="800"
-    color="blue"
-    >
-      <agency-list/>
-    </v-card>
+  <div align="center">
+    <agency-list/>
   </div>
 </template>
 

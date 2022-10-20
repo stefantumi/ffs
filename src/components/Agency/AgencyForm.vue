@@ -1,6 +1,11 @@
 <template>
-  <v-card>
-    <v-form v-model="valid">
+  <v-card
+      height="400"
+      width="400"
+  >
+    <v-form
+        v-model="valid"
+    >
       <v-container>
         <v-row>
           <v-col cols="12" md="4" >
@@ -28,6 +33,7 @@ import axios from "axios";
 
 export default {
   name: "AgencyForm",
+  props:['agencyId'],
   data:() => {
     return {
       postFailed: false,
@@ -44,6 +50,18 @@ export default {
         method: "post",
         url: "https://localhost:7210/api/agency",
         data: {'name': this.agencyName},
+        headers: {'Accept': "*/*"}
+      }).then(
+          (x) => {
+            x.status === 201 ? this.success = true : this.success = false
+          }
+      )
+    },
+    updateAgency(agencyId, agencyName){
+      axios({
+        method: "post",
+        url: "https://localhost:7210/api/agency/"+agencyId,
+        data: {'name': agencyName},
         headers: {'Accept': "*/*"}
       }).then(
           (x) => {
