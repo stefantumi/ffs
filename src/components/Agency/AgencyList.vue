@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div align="center">
     <h1>Agencies</h1>
     <v-container
         v-for="agency in agencies"
@@ -94,7 +94,7 @@ export default {
     },
     deleteAgency(agency){
       console.log("deleting address with id"+ agency.id)
-      axios.delete("https://localhost:7210/api/agency/"+agency.id).then(
+      axios.delete(this.$store.state.serverApi + "/api/agency/"+agency.id).then(
           (x) => {
             if(x.status === 200)
               this.deleted = true
@@ -103,7 +103,7 @@ export default {
     }
   },
   mounted() {
-    axios.get("https://localhost:7210/api/agency").then(
+    axios.get(this.$store.state.serverApi + "/api/agency").then(
         (x) => {
           this.agencies = x.data
           this.loading = false

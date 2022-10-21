@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from "axios";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    serverApi: "https://localhost:7210/",
+    serverApi: "https://localhost:7210",
     addresses: [],
     agencies: undefined,
     properties: undefined,
@@ -28,6 +29,15 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    fetchAddresses({commit}){
+      try {
+        let promise = axios.get( this.$store.state.serverApi + '/api/address')
+        commit('ADD_TO_ADDRESSLIST', promise.data )
+      }catch (error){
+        alert(error)
+        console.log(error)
+      }
+    },
     setAddresses({commit}, payload){
       commit('ADD_TO_ADDRESSLIST', payload)
     },

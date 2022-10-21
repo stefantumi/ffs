@@ -48,7 +48,7 @@ export default {
     save(){
       axios({
         method: "post",
-        url: "https://localhost:7210/api/agency",
+        url: this.$store.state.serverApi + "/api/agency",
         data: {'name': this.agencyName},
         headers: {'Accept': "*/*"}
       }).then(
@@ -60,7 +60,7 @@ export default {
     updateAgency(agencyId, agencyName){
       axios({
         method: "post",
-        url: "https://localhost:7210/api/agency/"+agencyId,
+        url: this.$store.state.serverApi + "/api/agency/"+agencyId,
         data: {'name': agencyName},
         headers: {'Accept': "*/*"}
       }).then(

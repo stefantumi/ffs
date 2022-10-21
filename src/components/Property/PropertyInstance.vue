@@ -1,5 +1,5 @@
 <template>
-<div>
+<v-container>
   <v-card
       max-width="600"
   >
@@ -14,32 +14,8 @@
       Size: {{ property.size }} FM<br>
       Price: {{ property.price }}<br>
     </v-card-text>
-    <v-card-actions>
-      <v-btn
-          class="white--text"
-          color="teal"
-          @click="overlay = !overlay"
-      >
-        edit
-      </v-btn>
-    </v-card-actions>
   </v-card>
-  <v-row justify="center">
-    <v-overlay
-        :z-index="property.id"
-        :value="overlay"
-    >
-      <!--          <PropertyEdit :property-id="property.id"/>-->
-      <v-btn
-          class="white--text"
-          color="teal"
-          @click="overlay = false"
-      >
-        Hide Overlay
-      </v-btn>
-    </v-overlay>
-  </v-row>
-</div>
+</v-container>
 </template>
 
 <script>
@@ -51,20 +27,32 @@ export default {
   data: () => {
     return{
       addresses: [],
+      streets: [],
       properties: undefined,
-      overlay: false,
-      zIndex: 0,
     }
   },
-  mounted() {
-    axios.get("https://localhost:7210/api/address").then(
+  beforeMount() {
+    axios.get(this.$store.state.serverApi + "/api/address").then(
         (x) => {
+          this.addresses = x.data
           for (let i = 0; i < x.data.length; i++) {
-            this.addresses.push(x.data[i].street + '' + x.data[i].houseNo)
+            this.streets.push(x.data[i].street)
           }
+          console.log(this.streets)
         }
     )
-  }
+  },
+/*  mounted() {
+    axios.get(this.$store.state.serverApi + "/api/address").then(
+        (x) => {
+          this.addresses = x.data
+          for (let i = 0; i < x.data.length; i++) {
+            this.streets.push(x.data[i].street)
+          }
+          console.log(this.streets)
+        }
+    )
+  }*/
 }
 </script>
 

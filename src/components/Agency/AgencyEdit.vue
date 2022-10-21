@@ -47,7 +47,7 @@ export default {
     }
   },
   mounted(){
-    axios.get("https://localhost:7210/api/agency/"+this.agencyId).then(
+    axios.get(this.$store.state.serverApi + "/api/agency/"+this.agencyId).then(
         (x) => {
           this.localAgency = x.data
         }

@@ -59,7 +59,7 @@ export default {
     }
   },
   mounted(){
-    axios.get("https://localhost:7210/api/property/"+this.propertyId).then(
+    axios.get(this.$store.state.serverApi + "/api/property/"+this.propertyId).then(
         (x) => {
           this.localProperty = x.data
         }

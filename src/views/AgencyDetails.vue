@@ -9,34 +9,51 @@
     >
       <PropertyInstance :property="property" />
     </v-container>
+    <v-btn
+        fab
+        outlined
+        @click="overlay =! overlay"
+    >
+      <v-icon>mdi-plus</v-icon>
+    </v-btn>
+    <v-overlay
+        :value="overlay"
+    >
+      <PropertyCreate/>
+      <v-btn
+          color="success"
+          @click="overlay = false"
+      >
+        Hide Overlay
+      </v-btn>
+    </v-overlay>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-/*import PropertyEdit from "@/components/Property/PropertyEdit";*/
-/*import PropertyCreate from "@/components/Property/PropertyCreate";*/
 import PropertyInstance from "@/components/Property/PropertyInstance";
+import PropertyCreate from "@/components/Property/PropertyCreate";
 
 export default {
   name: "AgencyDetails",
   components: {
-    PropertyInstance
+    PropertyInstance,
+    PropertyCreate
   },
   props: ['agencyId'],
   data: () => {
     return {
+      overlay: false,
       agency: undefined,
       properties: undefined,
       addresses: [],
       loading: true,
-
     }
   },
-  mounted() {
-    axios.get("https://localhost:7210/api/agency/"+this.$route.params.agencyId).then(
+  beforeMount() {
+    axios.get(this.$store.state.serverApi + "/api/agency/"+this.$route.params.agencyId).then(
         (x) => {
-          console.log(x.data)
           this.agency = x.data
           this.properties = x.data.properties
         }
