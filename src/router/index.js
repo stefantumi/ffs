@@ -20,7 +20,7 @@ const routes = [
   {
     path: '/agencydetails/:agencyId',
     name: 'agencydetails',
-    component: () => import('../views/AgencyDetails.vue'),
+    component: () => import('../views/PropertyOverview.vue'),
   }
 ]
 

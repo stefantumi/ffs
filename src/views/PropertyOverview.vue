@@ -9,17 +9,18 @@
     >
       <PropertyInstance :property="property" />
     </v-container>
-    <v-btn
+    <v-icon
         fab
         outlined
         @click="overlay =! overlay"
     >
-      <v-icon>mdi-plus</v-icon>
-    </v-btn>
+      mdi-plus
+    </v-icon>
+
     <v-overlay
         :value="overlay"
     >
-      <PropertyCreate/>
+      <PropertyCreate :agency-id="agency.id"/>
       <v-btn
           color="success"
           @click="overlay = false"
