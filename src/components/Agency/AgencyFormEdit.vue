@@ -1,8 +1,10 @@
 <template>
-  <form>
+  <v-form v-model="valid" lazy-validation ref="form">
     <v-text-field
         v-model="name"
-        label="Nafn"
+        :rules="nameRules"
+        :counter="20"
+        label="Nafn sölu"
         required
     ></v-text-field>
     <v-btn
@@ -15,7 +17,7 @@
     <v-btn>
       clear
     </v-btn>
-  </form>
+  </v-form>
 </template>
 <script>
 
@@ -23,13 +25,18 @@
 import axios from "axios";
 
 export default {
-  name: "AgencyEdit",
+  name: "AgencyFormEdit",
   props: ['agency'],
   data: () => ({
+    valid: false,
     id: this.agency.id,
     name: this.agency.name,
     select: null,
     checkbox: false,
+    nameRules: [
+      v => !!v || 'Vantar upplýsingar',
+      v => v.length <= 20 || 'Mest 20 stafir leyfðir'
+    ]
   }),
   methods: {
     editAgency(){

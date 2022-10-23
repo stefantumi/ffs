@@ -5,9 +5,11 @@
 
     <v-container v-for="agency in agencies" :key="agency.id">
       <v-overlay opacity="1" :z-index="agency.id" :value="overlay">
-        <agency-form/>
+        <v-card class="pa-3 ma-3">
+          <agency-form/>
+        </v-card>
         <v-btn class="white&#45;&#45;text" color="teal" @click="overlay = false">
-          Hide Overlay
+          Hætta við
         </v-btn>
       </v-overlay>
       <agency-instance :agency="agency" />
@@ -16,7 +18,7 @@
     <v-row justify="center">
     </v-row>
 
-    <v-btn right bottom fab class="ma-3 pa-3" color="teal" @click="overlay = !overlay">
+    <v-btn fab class="float-end ma-3 pa-3" color="teal" @click="overlay = !overlay">
       <v-icon>
         mdi-plus
       </v-icon>

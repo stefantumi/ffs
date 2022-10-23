@@ -1,31 +1,25 @@
 <template>
-  <v-card
-      height="400"
-      width="400"
-  >
     <v-form
         v-model="valid"
+        ref="form"
+        lazy-validation
     >
-      <v-container>
-        <v-row>
-          <v-col cols="12" md="4" >
-            <v-text-field
-                v-model="agencyName"
-                label="Nafn Sölu"
-            >
-            </v-text-field>
-            <v-btn
-                class="mr-4"
-                type="submit"
-                @click="save"
-            >
-              submit
-            </v-btn>
-          </v-col>
-        </v-row>
-      </v-container>
+        <v-text-field
+            v-model="agencyName"
+            :rules="nameRules"
+            counter="20"
+            label="Nafn Sölu"
+            required
+        >
+        </v-text-field>
+        <v-btn
+            class="mr-4"
+            type="submit"
+            @click="save"
+        >
+          Skrá
+        </v-btn>
     </v-form>
-  </v-card>
 </template>
 
 <script>
@@ -39,14 +33,15 @@ export default {
       postFailed: false,
       postSuccess: false,
       agencyName: undefined,
-      valid: undefined,
-      agency: {
-      },
+      valid: false,
+      nameRules: [
+          v => !!v || 'Vantar upplýsingar',
+          v => v.length <= 20 || 'Mest 20 stafir leyfðir'
+      ]
     }
   },
   methods:{
     save(){
-
       axios({
         method: "post",
         url: this.$store.state.serverApi + "/api/agency",

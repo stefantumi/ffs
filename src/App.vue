@@ -2,12 +2,10 @@
     <v-app id="app">
       <nav>
         <v-app-bar>
-          Property Manager
           <v-spacer>
             <router-link to="/">Home</router-link> |
             <router-link to="/about">About</router-link>
           </v-spacer>
-          property manager
         </v-app-bar>
       </nav>
       <router-view/>

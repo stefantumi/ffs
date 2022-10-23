@@ -5,7 +5,6 @@
   >
     <v-card-title>
       {{agency.id}}
-
       <v-spacer>{{ agency.name }}</v-spacer>
     </v-card-title>
     <v-card-actions>
@@ -15,17 +14,15 @@
         mdi-magnify
       </v-icon>
       <v-spacer>
-        <v-btn
+        <v-icon
             type="submit"
             @click="deleteAgency(agency)"
             :loading="loading"
             :disabled="loading"
             fab
         >
-          <v-icon dark>
-            mdi-delete
-          </v-icon>
-        </v-btn>
+          mdi-delete
+        </v-icon>
       </v-spacer>
       <v-icon
           type="submit"
@@ -52,7 +49,7 @@
 <script>
 import router from "@/router";
 import axios from "axios";
-import agencyEdit from "@/components/Agency/AgencyEdit";
+import agencyEdit from "@/components/Agency/AgencyFormEdit";
 
 export default {
   name: "AgencyInstance",

@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <v-form v-model="valid" lazy-validation ref="form">
     <v-text-field
         v-model="size"
         :counter="10"
@@ -45,7 +45,7 @@
     <v-btn @click="clear">
       clear
     </v-btn>
-  </form>
+  </v-form>
 </template>
 <script>
 
@@ -53,9 +53,10 @@
 import axios from "axios";
 
 export default {
-  name: "PropertyCreate",
+  name: "PropertyFormEdit",
   props: ['property'],
   data: () => ({
+    valid:false,
     agencyId: this.property.agencyId,
     size: this.property.size,
     price: this.property.price,

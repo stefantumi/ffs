@@ -2,7 +2,7 @@
   <v-card
       class="pa-3 ma-3"
   >
-    <form>
+    <v-form v-model="valid" lazy-validation ref="form">
       <v-text-field
           v-model="size"
           :counter="10"
@@ -48,7 +48,7 @@
       <v-btn @click="clear">
         clear
       </v-btn>
-    </form>
+    </v-form>
   </v-card>
 </template>
 <script>
@@ -57,9 +57,10 @@
 import axios from "axios";
 
 export default {
-  name: "PropertyCreate",
+  name: "PropertyForm",
   props: ['agencyId'],
   data: () => ({
+    valid: true,
     size: 0,
     price: 0,
     addressStreet: "",
@@ -69,7 +70,6 @@ export default {
     checkbox: false,
 
   }),
-
   methods: {
     createProperty(){
       let postData = {
@@ -82,7 +82,6 @@ export default {
             "size": this.size,
             "price": this.price
       }
-      console.log("data beeing sent", postData)
       axios.post(this.$store.state.serverApi + "/api/property/", postData ).then(
           (x) => {
             console.log(x)

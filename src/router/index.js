@@ -7,7 +7,7 @@ const routes = [
   {
     path: '/',
     name: 'AgencyList',
-    component: () => import('../components/Agency/AgencyList.vue')
+    component: () => import('../views/AgencyListview.vue')
   },
   {
     path: '/about',

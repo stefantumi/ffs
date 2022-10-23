@@ -25,7 +25,7 @@
           color="success"
           @click="overlay = false"
       >
-        Hide Overlay
+        Loka
       </v-btn>
     </v-overlay>
   </div>
@@ -34,10 +34,10 @@
 <script>
 import axios from "axios";
 import PropertyInstance from "@/components/Property/PropertyInstance";
-import PropertyCreate from "@/components/Property/PropertyCreate";
+import PropertyCreate from "@/components/Property/PropertyForm";
 
 export default {
-  name: "AgencyDetails",
+  name: "PropertyOverview",
   components: {
     PropertyInstance,
     PropertyCreate

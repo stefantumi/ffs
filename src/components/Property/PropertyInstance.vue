@@ -47,7 +47,7 @@
 
 <script>
 import axios from "axios";
-import PropertyEdit from "@/components/Property/PropertyEdit";
+import PropertyEdit from "@/components/Property/PropertyFormEdit";
 
 export default {
   name: "PropertyInstance",
