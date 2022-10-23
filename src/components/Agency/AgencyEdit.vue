@@ -1,61 +1,42 @@
 <template>
-  <v-form v-model="valid">
-    <v-container>
-      <v-row>
-        <v-col
-            cols="12"
-            md="4"
-        >
-          <v-text-field
-              v-model="localAgency.name"
-              :rules="nameRules"
-              :counter="10"
-              label="Nafn"
-              required
-          ></v-text-field>
-        </v-col>
-        <v-col
-            cols="12"
-            md="4"
-        >
-          <v-col cols="6">
-          </v-col>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-form>
+  <form>
+    <v-text-field
+        v-model="name"
+        label="Nafn"
+        required
+    ></v-text-field>
+    <v-btn
+        class="mr-4"
+        type="submit"
+        @click="editAgency"
+    >
+      submit
+    </v-btn>
+    <v-btn>
+      clear
+    </v-btn>
+  </form>
 </template>
-
 <script>
+
+
 import axios from "axios";
 
 export default {
   name: "AgencyEdit",
-  props: ['agencyId'],
-  data: () => {
-    return {
-      valid: false,
-      localAgency: undefined,
-      nameRules: [
-        v => !!v || 'Name is required',
-        v => v.length <= 10 || 'Name must be less than 10 characters',
-      ],
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+/.test(v) || 'E-mail must be valid',
-      ],
+  props: ['agency'],
+  data: () => ({
+    id: this.agency.id,
+    name: this.agency.name,
+    select: null,
+    checkbox: false,
+  }),
+  methods: {
+    editAgency(){
+      console.log("agency hér", this.agency.id, this.name)
+      axios.put(this.$store.state.serverApi + "/api/agency/", {id : this.agency.id, name: this.name})
     }
   },
-  mounted(){
-    axios.get(this.$store.state.serverApi + "/api/agency/"+this.agencyId).then(
-        (x) => {
-          this.localAgency = x.data
-        }
-    )
-  }
 }
 </script>
 
-<style scoped>
-
-</style>

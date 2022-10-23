@@ -1,16 +1,19 @@
 <template>
-  <v-app id="app">
-    <nav>
-      <v-app-bar>
-        <v-spacer>
-          <router-link to="/">Home</router-link> |
-          <router-link to="/about">About</router-link>
-        </v-spacer>
-      </v-app-bar>
-    </nav>
-    <router-view/>
-  </v-app>
+    <v-app id="app">
+      <nav>
+        <v-app-bar>
+          Property Manager
+          <v-spacer>
+            <router-link to="/">Home</router-link> |
+            <router-link to="/about">About</router-link>
+          </v-spacer>
+          property manager
+        </v-app-bar>
+      </nav>
+      <router-view/>
+    </v-app>
 </template>
+
 
 <style lang="scss">
 #app {
@@ -34,3 +37,7 @@ nav {
   }
 }
 </style>
+<script>export default {
+  components: {}
+}
+</script>
