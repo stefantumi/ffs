@@ -1,55 +1,51 @@
 <template>
-  <v-card
-      class="pa-3 ma-3"
-  >
-    <v-form v-model="valid" lazy-validation ref="form">
-      <v-text-field
-          v-model="size"
-          :counter="10"
-          label="Stærð"
-          required
-      ></v-text-field>
-      <v-text-field
-          v-model="price"
-          :counter="10"
-          label="Verð"
-          required
-      ></v-text-field>
-      <v-text-field
-          v-model="addressStreet"
-          :counter="10"
-          label="Götuheiti"
-          required
-      ></v-text-field>
-      <v-text-field
-          v-model="addressHouseNo"
-          :counter="3"
-          label="húsnúmer"
-          required
-      ></v-text-field>
-      <v-text-field
-          v-model="addressZip"
-          counter="3"
-          label="póstnúmer"
-          required
-      ></v-text-field>
-      <v-checkbox
-          v-model="checkbox"
-          label="Do you agree?"
-          required
-      ></v-checkbox>
-      <v-btn
-          class="mr-4"
-          type="submit"
-          @click="createProperty"
-      >
-        submit
-      </v-btn>
-      <v-btn @click="clear">
-        clear
-      </v-btn>
-    </v-form>
-  </v-card>
+  <v-form v-model="valid" lazy-validation ref="form">
+    <v-text-field
+        v-model="size"
+        :counter="10"
+        label="Stærð"
+        required
+    ></v-text-field>
+    <v-text-field
+        v-model="price"
+        :counter="10"
+        label="Verð"
+        required
+    ></v-text-field>
+    <v-text-field
+        v-model="addressStreet"
+        :counter="10"
+        label="Götuheiti"
+        required
+    ></v-text-field>
+    <v-text-field
+        v-model="addressHouseNo"
+        :counter="3"
+        label="húsnúmer"
+        required
+    ></v-text-field>
+    <v-text-field
+        v-model="addressZip"
+        counter="3"
+        label="póstnúmer"
+        required
+    ></v-text-field>
+    <v-checkbox
+        v-model="checkbox"
+        label="Do you agree?"
+        required
+    ></v-checkbox>
+    <v-btn
+        class="mr-4"
+        type="submit"
+        @click="createProperty"
+    >
+      submit
+    </v-btn>
+    <v-btn @click="clear">
+      clear
+    </v-btn>
+  </v-form>
 </template>
 <script>
 

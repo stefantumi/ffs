@@ -1,11 +1,20 @@
 <template>
-  <div align="center">
-
+  <v-container align="center">
     <h1>Agencies</h1>
-
+    <v-container>
+      <v-card v-if="agencies.length < 1" class="ma-3 pa-3" max-width="450">
+        <v-card-title>
+          No Agencies
+        </v-card-title>
+        <agency-form></agency-form>
+      </v-card>
+    </v-container>
     <v-container v-for="agency in agencies" :key="agency.id">
       <v-overlay opacity="1" :z-index="agency.id" :value="overlay">
         <v-card class="pa-3 ma-3">
+          <v-card-title>
+            Skrá Fasteignasölu
+          </v-card-title>
           <agency-form/>
         </v-card>
         <v-btn class="white&#45;&#45;text" color="teal" @click="overlay = false">
@@ -13,19 +22,25 @@
         </v-btn>
       </v-overlay>
       <agency-instance :agency="agency" />
+
     </v-container>
 
-    <v-row justify="center">
-    </v-row>
-
-    <v-btn fab class="float-end ma-3 pa-3" color="teal" @click="overlay = !overlay">
+    <v-btn fab right bottom absolute class="ma-3 mb-10 pa-3" color="teal" @click="overlay = !overlay">
       <v-icon>
         mdi-plus
       </v-icon>
     </v-btn>
-
-  </div>
-
+    <v-card v-if="getFailed">
+      <v-card-title>
+        <v-container>
+          {{sslError}}
+        </v-container>
+      </v-card-title>
+      <v-card-text>
+        please visit <a :href="this.$store.state.serverApi + '/api/agency/'">server address</a> to accept ssl
+      </v-card-text>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -42,9 +57,11 @@ export default {
   },
   data:() => {
     return {
+      sslError: undefined,
+      getFailed: false,
+      deleteError: false,
       agencies: undefined,
       overlay: false,
-      loading: false,
       zIndex: 0,
     }
   },
@@ -53,11 +70,9 @@ export default {
       router.push('/agencydetails/'+agencyId)
     },
     deleteAgency(agency){
-      this.loading = true
-      axios.delete(this.$store.state.serverApi + "/api/agency/"+agency.id).then(
-          (x) => {
-            if(x.status === 200)
-              this.loading = false
+      axios.delete(this.$store.state.serverApi + "/api/agency/"+agency.id).catch(
+          error => {
+            this.deleteError = error.code
           }
       )
     }
@@ -66,9 +81,11 @@ export default {
     axios.get(this.$store.state.serverApi + "/api/agency").then(
         (x) => {
           this.agencies = x.data
-          this.loading = false
         }
-    )
+    ).catch(error => {
+      this.sslError = error.code
+      this.getFailed = true
+    })
   }
 }
 </script>

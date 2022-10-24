@@ -1,7 +1,7 @@
 <template>
 <v-container>
   <v-card
-      max-width="600"
+      max-width="450"
   >
     <v-card-title>
       {{ property.id }}
@@ -9,36 +9,45 @@
         {{ property.address.street }}
         {{ property.address.houseNo }}
       </v-spacer>
-      <v-icon
-          v-bind:loading="deleteLoading"
-          @click="deleteProperty(property.id)"
-          color="danger"
-          type="submit"
-      >
-        mdi-delete
-      </v-icon>
-      <v-btn>
-        <v-icon
-            @click="overlay =! overlay"
-            type="submit"
-        >
-          mdi-pen
-        </v-icon>
-      </v-btn>
     </v-card-title>
     <v-card-text>
       Size: {{ property.size }} FM<br>
       Price: {{ property.price }}<br>
     </v-card-text>
+    <v-card-actions>
+
+      <v-icon
+          color="primary"
+          @click="overlay =! overlay"
+          type="submit"
+      >
+        mdi-pen
+      </v-icon>
+      <v-spacer></v-spacer>
+      <v-icon
+          v-bind:loading="deleteLoading"
+          @click="deleteProperty(property.id)"
+          color="red"
+          type="submit"
+      >
+        mdi-delete
+      </v-icon>
+    </v-card-actions>
     <v-overlay
+        opacity="1"
         :value="overlay"
     >
-      <PropertyEdit :property="property"/>
+      <v-card class="pa-3 ma-3">
+        <v-card-title>
+          Breyta Eign
+        </v-card-title>
+        <PropertyEdit :property="property"/>
+      </v-card>
       <v-btn
           color="success"
           @click="overlay = false"
       >
-        Hide Overlay
+        Loka
       </v-btn>
     </v-overlay>
   </v-card>

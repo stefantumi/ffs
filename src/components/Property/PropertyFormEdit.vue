@@ -2,25 +2,22 @@
   <v-form v-model="valid" lazy-validation ref="form">
     <v-text-field
         v-model="size"
-        :counter="10"
-        label="Stærð"
+        label="Stærð m2"
         required
     ></v-text-field>
     <v-text-field
         v-model="price"
-        :counter="10"
         label="Verð"
         required
     ></v-text-field>
     <v-text-field
         v-model="addressStreet"
-        :counter="10"
+        :counter="30"
         label="Götuheiti"
         required
     ></v-text-field>
     <v-text-field
         v-model="addressHouseNo"
-        :counter="3"
         label="húsnúmer"
         required
     ></v-text-field>
@@ -42,7 +39,7 @@
     >
       submit
     </v-btn>
-    <v-btn @click="clear">
+    <v-btn @click="this.$refs.form.cleanRaws()">
       clear
     </v-btn>
   </v-form>

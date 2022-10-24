@@ -1,11 +1,23 @@
 <template>
     <v-app id="app">
       <nav>
-        <v-app-bar>
-          <v-spacer>
-            <router-link to="/">Home</router-link> |
-            <router-link to="/about">About</router-link>
-          </v-spacer>
+        <v-app-bar
+            absolute
+        >
+          <v-app-bar-title>Agency Manager</v-app-bar-title>
+
+           <v-container  >
+             <router-link to="/"> Home </router-link>  |
+             <router-link to="/about"> About </router-link>
+           </v-container>
+          <v-switch
+              class="float-end"
+              v-model="$vuetify.theme.dark"
+              :hint="$vuetify.theme.dark? 'Dark mode':'Light mode'"
+              inset
+              label="Theme"
+              persistent-hint
+          ></v-switch>
         </v-app-bar>
       </nav>
       <router-view/>
@@ -35,7 +47,8 @@ nav {
   }
 }
 </style>
-<script>export default {
-  components: {}
+<script>
+export default {
+  components: {},
 }
 </script>

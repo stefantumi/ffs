@@ -40,7 +40,6 @@ export default {
   }),
   methods: {
     editAgency(){
-      console.log("agency hér", this.agency.id, this.name)
       axios.put(this.$store.state.serverApi + "/api/agency/", {id : this.agency.id, name: this.name})
     }
   },

@@ -9,37 +9,44 @@
     </v-card-title>
     <v-card-actions>
       <v-icon
-          @click="viewAgency(agency.id)"
-      >
-        mdi-magnify
-      </v-icon>
-      <v-spacer>
-        <v-icon
-            type="submit"
-            @click="deleteAgency(agency)"
-            :loading="loading"
-            :disabled="loading"
-            fab
-        >
-          mdi-delete
-        </v-icon>
-      </v-spacer>
-      <v-icon
+          color="primary"
           type="submit"
           @click="overlay =! overlay"
       >
         mdi-pen
+      </v-icon>
+      <v-spacer>
+        <v-icon
+            color="success"
+            @click="viewAgency(agency.id)"
+        >
+          mdi-magnify
+        </v-icon>
+
+      </v-spacer>
+      <v-icon
+          type="submit"
+          color="red"
+          @click="deleteAgency(agency)"
+      >
+        mdi-delete
       </v-icon>
       <v-overlay
           opacity="1"
           :z-index="agency.id"
           :value="overlay"
       >
-        <agency-edit :agency="agency"/>
+        <v-card class="pa-3 ma-3">
+          <v-card-title>
+            Breyta Nafni
+          </v-card-title>
+          <agency-edit :agency="agency"/>
+        </v-card>
         <v-btn
+            color="red"
             @click="overlay = false"
         >
-          Hide Overlay
+          Hætta við
         </v-btn>
       </v-overlay>
     </v-card-actions>
@@ -61,8 +68,8 @@ export default {
     return {
       agencies: undefined,
       overlay: false,
-      loading: false,
       zIndex: 0,
+      errorMessage: undefined,
     }
   },
   methods:{
@@ -70,13 +77,13 @@ export default {
       router.push('/agencydetails/'+agencyId)
     },
     deleteAgency(agency){
-      this.loading = true
-      axios.delete(this.$store.state.serverApi + "/api/agency/"+agency.id).then(
-          (x) => {
-            if(x.status === 200)
-              this.loading = false
-          }
-      )
+      this.loader = 'loading'
+      axios.delete(this.$store.state.serverApi + "/api/agency/"+agency.id).catch(error => {
+        this.errorMessage = error.code
+        if(error.code == null){
+          this.$router.push('home')
+        }
+      })
     }
   },
 }
