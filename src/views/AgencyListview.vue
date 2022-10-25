@@ -1,12 +1,12 @@
 <template>
-  <v-container align="center">
+  <v-container>
     <h1>Agencies</h1>
-    <v-container>
-      <v-card v-if="agencyCount < 1" class="ma-3 pa-3" max-width="450">
+    <v-container v-if="agencyCount < 1">
+      <v-card class="ma-3 pa-3" max-width="450">
         <v-card-title>
           No Agencies
         </v-card-title>
-        <agency-form></agency-form>
+        <agency-form/>
       </v-card>
     </v-container>
     <v-container v-for="agency in agencies" :key="agency.id">
@@ -71,11 +71,9 @@ export default {
       router.push('/agencydetails/'+agencyId)
     },
     deleteAgency(agency){
-      axios.delete(this.$store.state.serverApi + "/api/agency/"+agency.id).catch(
-          error => {
-            this.deleteError = error.code
-          }
-      )
+      axios.delete(this.$store.state.serverApi + "/api/agency/"+agency.id)
+          .then(() => {this.$router.push('home')})
+          .catch(error => {this.deleteError = error.code})
     }
   },
   mounted() {

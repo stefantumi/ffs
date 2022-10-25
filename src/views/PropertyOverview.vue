@@ -1,7 +1,5 @@
 <template>
-  <div
-      align="center"
-  >
+  <v-container>
     <h1>{{agencyName}}</h1>
     <v-container>
       <v-card v-if="propertyCount < 1" class="ma-3 pa-3" max-width="450">
@@ -17,7 +15,7 @@
     >
       <PropertyInstance :property="property" />
     </v-container>
-    <v-btn v-btn fab right bottom absolute class="ma-3 mb-10 pa-3" color="teal" @click="overlay =! overlay"
+    <v-btn fab right bottom absolute class="ma-3 mb-10 pa-3" color="teal" @click="overlay =! overlay"
     >
       <v-icon>
         mdi-plus
@@ -41,7 +39,7 @@
         Loka
       </v-btn>
     </v-overlay>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -71,8 +69,9 @@ export default {
   mounted() {
     axios.get(this.$store.state.serverApi + "/api/agency/"+this.$route.params.agencyId).then(
         (x) => {
-          this.id = this.agencyId
+
           this.agency = x.data
+          this.id = this.agency.id
           this.agencyName = x.data.name
           this.properties = x.data.properties
           this.propertyCount = x.data.properties.length

@@ -36,7 +36,6 @@ export default {
       valid: false,
       nameRules: [
           v => !!v || 'Vantar upplýsingar',
-          v => v.length <= 20 || 'Mest 20 stafir leyfðir'
       ]
     }
   },

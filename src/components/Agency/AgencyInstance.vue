@@ -24,13 +24,11 @@
         </v-icon>
 
       </v-spacer>
-      <v-icon
-          type="submit"
-          color="red"
-          @click="deleteAgency(agency)"
-      >
-        mdi-delete
-      </v-icon>
+      <v-btn icon type="submit" @click="deleteAgency(agency)">
+        <v-icon color="red">
+          mdi-delete
+        </v-icon>
+      </v-btn>
       <v-overlay
           opacity="1"
           :z-index="agency.id"
@@ -78,13 +76,10 @@ export default {
       router.push('/agencydetails/'+agencyId)
     },
     deleteAgency(agency){
-      this.loader = 'loading'
       axios.delete(this.$store.state.serverApi + "/api/agency/"+agency.id)
+          .then(() => {this.$router.go(this.$router.currentRoute)})
           .catch(error => {
         this.errorMessage = error.code
-        if(error.code == null){
-          this.$router.push('home')
-        }
       })
     }
   },

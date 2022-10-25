@@ -3,7 +3,6 @@
     <v-text-field
         v-model="name"
         :rules="nameRules"
-        :counter="20"
         label="Nafn sölu"
         required
     ></v-text-field>
@@ -13,9 +12,6 @@
         @click="editAgency"
     >
       submit
-    </v-btn>
-    <v-btn>
-      clear
     </v-btn>
   </v-form>
 </template>
@@ -32,10 +28,8 @@ export default {
     id: undefined,
     name: undefined,
     select: null,
-    checkbox: false,
     nameRules: [
       v => !!v || 'Nafn má ekki vera tómt',
-      v => v.length <= 20 || 'Mest 20 stafir leyfðir'
     ]
   }),
   mounted() {

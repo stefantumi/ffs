@@ -91,6 +91,7 @@ export default {
             }else if (x.status === 404){
               this.deleteError = "Failed"
             }
+            this.$router.go(this.$router.currentRoute)
           }
       )
     }

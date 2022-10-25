@@ -30,11 +30,6 @@
         label="póstnúmer"
         required
     ></v-text-field>
-    <v-checkbox
-        v-model="checkbox"
-        label="Do you agree?"
-        required
-    ></v-checkbox>
     <v-btn
         class="mr-4"
         type="submit"
@@ -60,9 +55,10 @@ export default {
     addressHouseNo: 0,
     addressZip: 0,
     select: null,
-    checkbox: false,
-
   }),
+  mounted() {
+    console.log(this.agencyId)
+  },
   methods: {
     createProperty(){
       let postData = {
@@ -75,6 +71,7 @@ export default {
         size: this.size,
         price: this.price
       }
+      console.log(postData)
       axios.post(this.$store.state.serverApi + "/api/property/", postData )
     }
   },

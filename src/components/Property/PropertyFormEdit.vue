@@ -27,11 +27,6 @@
         label="póstnúmer"
         required
     ></v-text-field>
-    <v-checkbox
-        v-model="checkbox"
-        label="Do you agree?"
-        required
-    ></v-checkbox>
     <v-btn
         class="mr-4"
         type="submit"
@@ -59,7 +54,6 @@ export default {
     addressHouseNo: undefined,
     addressZip: undefined,
     select: null,
-    checkbox: false,
   }),
   mounted() {
     this.agencyId = this.property.agencyId
