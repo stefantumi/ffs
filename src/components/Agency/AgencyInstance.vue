@@ -67,6 +67,7 @@ export default {
   data: () => {
     return {
       agencies: undefined,
+      agencyCount: undefined,
       overlay: false,
       zIndex: 0,
       errorMessage: undefined,
@@ -78,7 +79,8 @@ export default {
     },
     deleteAgency(agency){
       this.loader = 'loading'
-      axios.delete(this.$store.state.serverApi + "/api/agency/"+agency.id).catch(error => {
+      axios.delete(this.$store.state.serverApi + "/api/agency/"+agency.id)
+          .catch(error => {
         this.errorMessage = error.code
         if(error.code == null){
           this.$router.push('home')

@@ -2,7 +2,7 @@
   <v-container align="center">
     <h1>Agencies</h1>
     <v-container>
-      <v-card v-if="agencies.length < 1" class="ma-3 pa-3" max-width="450">
+      <v-card v-if="agencyCount < 1" class="ma-3 pa-3" max-width="450">
         <v-card-title>
           No Agencies
         </v-card-title>
@@ -58,6 +58,7 @@ export default {
   data:() => {
     return {
       sslError: undefined,
+      agencyCount: undefined,
       getFailed: false,
       deleteError: false,
       agencies: undefined,
@@ -81,6 +82,7 @@ export default {
     axios.get(this.$store.state.serverApi + "/api/agency").then(
         (x) => {
           this.agencies = x.data
+          this.agencyCount = x.data.length
         }
     ).catch(error => {
       this.sslError = error.code

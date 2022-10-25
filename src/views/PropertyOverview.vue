@@ -2,13 +2,13 @@
   <div
       align="center"
   >
-    <h1>{{agency.name}}</h1>
+    <h1>{{agencyName}}</h1>
     <v-container>
-      <v-card v-if="properties.length < 1" class="ma-3 pa-3" max-width="450">
+      <v-card v-if="propertyCount < 1" class="ma-3 pa-3" max-width="450">
         <v-card-title>
           Skráðu fyrstu eignina
         </v-card-title>
-        <PropertyCreate :agency-id="agency.id"/>
+        <PropertyCreate :agency-id="id"/>
       </v-card>
     </v-container>
     <v-container
@@ -32,7 +32,7 @@
         <v-card-title>
           Ný eign
         </v-card-title>
-        <PropertyCreate :agency-id="agency.id"/>
+        <PropertyCreate :agency-id="id"/>
       </v-card>
       <v-btn
           color="success"
@@ -59,6 +59,9 @@ export default {
   data: () => {
     return {
       overlay: false,
+      agencyName: undefined,
+      propertyCount: undefined,
+      id: undefined,
       agency: undefined,
       properties: undefined,
       addresses: [],
@@ -66,15 +69,16 @@ export default {
     }
   },
   mounted() {
-    axios.get(this.$store.state.serverApi + "/api/agency/"+this.$route.params.agencyId, {verify: false}).then(
+    axios.get(this.$store.state.serverApi + "/api/agency/"+this.$route.params.agencyId).then(
         (x) => {
+          this.id = this.agencyId
           this.agency = x.data
+          this.agencyName = x.data.name
           this.properties = x.data.properties
-
+          this.propertyCount = x.data.properties.length
         }
     );
-
-  }
+  },
 }
 </script>
 

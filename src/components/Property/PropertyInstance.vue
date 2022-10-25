@@ -64,6 +64,7 @@ export default {
   props: ['property'],
   data: () => {
     return{
+      dialog:false,
       overlay: false,
       deleteError: undefined,
       deleteLoading: false,

@@ -39,10 +39,8 @@
     >
       submit
     </v-btn>
-    <v-btn @click="this.$refs.form.cleanRaws()">
-      clear
-    </v-btn>
   </v-form>
+
 </template>
 <script>
 
@@ -54,39 +52,38 @@ export default {
   props: ['property'],
   data: () => ({
     valid:false,
-    agencyId: this.property.agencyId,
-    size: this.property.size,
-    price: this.property.price,
-    addressStreet: this.property.address.street,
-    addressHouseNo: this.property.address.houseNo,
-    addressZip: this.property.address.zip,
+    agencyId: undefined,
+    size: undefined,
+    price: undefined,
+    addressStreet: undefined,
+    addressHouseNo: undefined,
+    addressZip: undefined,
     select: null,
     checkbox: false,
-
   }),
-  mounted(){
-    console.log("property edit property details are ", this.property)
+  mounted() {
+    this.agencyId = this.property.agencyId
+    this.size = this.property.size
+    this.price = this.property.price
+    this.addressStreet = this.property.address.street
+    this.addressHouseNo = this.property.address.houseNo
+    this.addressZip = this.property.address.zip
   },
   methods: {
     editProperty(){
       let putData = {
-        "id": this.property.id,
-        "address": {
-          "id": this.property.address.id,
-          "street": this.addressStreet,
-              "houseNo": this.addressHouseNo,
-              "zip": this.addressZip
+        id: this.property.id,
+        address: {
+          id: this.property.address.id,
+          street: this.addressStreet,
+          houseNo: this.addressHouseNo,
+          zip: this.addressZip
         },
-        "agencyId": this.agencyId,
-        "size": this.size,
-        "price": this.price
+        agencyId: this.agencyId,
+        size: this.size,
+        price: this.price
       }
-      console.log("data beeing sent", putData)
-      axios.put(this.$store.state.serverApi + "/api/property/", putData ).then(
-          (x) => {
-            console.log(x)
-          }
-      )
+      axios.put(this.$store.state.serverApi + "/api/property/", putData )
     }
   },
 }

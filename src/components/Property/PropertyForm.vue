@@ -42,9 +42,6 @@
     >
       submit
     </v-btn>
-    <v-btn @click="clear">
-      clear
-    </v-btn>
   </v-form>
 </template>
 <script>
@@ -69,20 +66,16 @@ export default {
   methods: {
     createProperty(){
       let postData = {
-        "address": {
-          "street": this.addressStreet,
-              "houseNo": this.addressHouseNo,
-              "zip": this.addressZip
+        address: {
+          street: this.addressStreet,
+          houseNo: this.addressHouseNo,
+          zip: this.addressZip
         },
-        "agencyId": this.agencyId,
-            "size": this.size,
-            "price": this.price
+        agencyId: this.agencyId,
+        size: this.size,
+        price: this.price
       }
-      axios.post(this.$store.state.serverApi + "/api/property/", postData ).then(
-          (x) => {
-            console.log(x)
-          }
-      )
+      axios.post(this.$store.state.serverApi + "/api/property/", postData )
     }
   },
 }

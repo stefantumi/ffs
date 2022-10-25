@@ -53,18 +53,6 @@ export default {
           }
       )
     },
-    updateAgency(agencyId, agencyName){
-      axios({
-        method: "post",
-        url: this.$store.state.serverApi + "/api/agency/"+agencyId,
-        data: {'name': agencyName},
-        headers: {'Accept': "*/*"}
-      }).then(
-          (x) => {
-            x.status === 201 ? this.success = true : this.success = false
-          }
-      )
-    }
   }
 }
 </script>
